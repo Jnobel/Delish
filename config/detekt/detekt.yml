@@ -1,0 +1,167 @@
+# === Build Configuration ===
+build:
+  maxIssues: 10  # Allow up to 10 minor issues before failing
+  excludeCorrectable: true  # Exclude minor auto-correctable issues
+
+config:
+  validation: true
+  warningsAsErrors: false
+  excludes: ''
+
+processors:
+  active: true
+  exclude:
+    - 'DetektProgressListener'
+
+console-reports:
+  active: true
+  exclude:
+    - 'ProjectStatisticsReport'
+    - 'ComplexityReport'
+    - 'NotificationReport'
+    - 'FindingsReport'
+    - 'FileBasedFindingsReport'
+
+output-reports:
+  active: true
+  exclude: []
+
+# === Style Rules ===
+style:
+  active: true
+  DataClassContainsFunctions:
+    active: false
+    conversionFunctionPrefix:
+      - 'to'
+  FunctionOnlyReturningConstant:
+    active: true
+    ignoreOverridableFunction: true
+    ignoreActualFunction: true
+    excludedFunctions:
+      - 'toString'
+      - 'hashCode'
+  ReturnCount:
+    active: true
+    max: 2
+    excludedFunctions:
+      - 'equals'
+    excludeLabeled: false
+    excludeReturnFromLambda: true
+    excludeGuardClauses: false
+
+# === Migration of Deprecated Rules ===
+potential-bugs:
+  active: true
+  IgnoredReturnValue:
+    active: true
+    restrictToConfig: true
+    returnValueAnnotations:
+      - '*.CheckResult'
+      - '*.CheckReturnValue'
+    ignoreReturnValueAnnotations:
+      - '*.CanIgnoreReturnValue'
+    ignoreFunctionCall: []
+
+  # These rules are deprecated as they are now part of the Kotlin compiler.
+  MissingWhenCase:
+    active: false
+  RedundantElseInWhen:
+    active: false
+  DuplicateCaseInWhenExpression:
+    active: false
+
+# === Complexity Rules ===
+complexity:
+  active: true
+  CyclomaticComplexMethod:
+    active: true
+    threshold: 15
+    ignoreSingleWhenExpression: false
+    ignoreSimpleWhenEntries: false
+    ignoreNestingFunctions: false
+    nestingFunctions:
+      - 'also'
+      - 'apply'
+      - 'forEach'
+      - 'isNotNull'
+      - 'ifNull'
+      - 'let'
+      - 'run'
+      - 'use'
+      - 'with'
+
+  LongMethod:
+    active: true
+    threshold: 60
+
+  LongParameterList:
+    active: true
+    functionThreshold: 6
+    constructorThreshold: 8
+
+  TooManyFunctions:
+    active: true
+    thresholdInClasses: 20
+    thresholdInInterfaces: 10
+    thresholdInObjects: 20
+    thresholdInEnums: 10
+    ignoreDeprecated: true
+    ignorePrivate: false
+
+# === Formatting Rules ===
+formatting:
+  active: true
+  Indentation:
+    active: true
+    indentSize: 4
+  MaximumLineLength:
+    active: true
+    maxLineLength: 120
+
+  # Imports
+  NoWildcardImports:
+    active: true
+  UnusedImports:
+    active: true
+
+  # Spacing
+  SpacingAroundKeywords:
+    active: true
+  SpacingAroundOperators:
+    active: true
+
+  # Ensure no trailing whitespaces
+  TrailingWhitespace:
+    active: true
+
+# === Performance Rules ===
+performance:
+  active: true
+  SpreadOperator:
+    active: true
+  ForEachOnRange:
+    active: true
+
+# === Security Rules ===
+security:
+  active: true
+  InsecureRandom:
+    active: true
+  HardCodedCredentials:
+    active: true
+    allowedPatterns: ['API_KEY', 'TOKEN', 'SECRET']
+
+# === Code Smells Rules ===
+code-smell:
+  active: true
+  LargeClass:
+    active: true
+    threshold: 500
+
+# === Documentation Rules ===
+comments:
+  active: true
+  UndocumentedPublicClass:
+    active: true  # Require public class documentation
+  UndocumentedPublicFunction:
+    active: true  # Require function documentation
